@@ -1,0 +1,34 @@
+{
+  "name": "modmail-http",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "migrate": "prisma migrate dev --name init",
+    "db": "tsx ./src/_prismaDev.ts"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^3.3.1",
+    "@sveltejs/kit": "^2.7.5",
+    "@sveltejs/vite-plugin-svelte": "^3.1.2",
+    "@types/node": "^22.9.0",
+    "prisma": "^5.21.1",
+    "sass": "^1.80.6",
+    "svelte": "^4.2.19",
+    "svelte-check": "^4.0.5",
+    "tslib": "^2.8.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  },
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "5.19.1",
+    "@skyra/discord-components-core": "4.0.0-alpha.20",
+    "discord-api-types": "^0.37.103"
+  }
+}

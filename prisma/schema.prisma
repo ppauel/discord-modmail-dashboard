@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Member {
+  id          String
+  server      Server    @relation(fields: [serverId], references: [id])
+  serverId    String
+  createdLogs Log[]
+  messages    Message[]
+  role        Int
+
+  @@id([id, serverId])
+}
+
+model Server {
+  id      String    @id
+  logs    Log[]
+  members Member[]
+  Message Message[]
+}
+
+model Log {
+  id        String    @id
+  messages  Message[]
+  server    Server    @relation(fields: [serverId], references: [id])
+  serverId  String
+  creator   Member    @relation(fields: [creatorId, serverId], references: [id, serverId])
+  creatorId String
+  createdAt DateTime  @default(now())
+}
+
+model Message {
+  id        String     @id
+  content   String
+  date      DateTime
+  member    Member     @relation(fields: [memberId, serverId], references: [id, serverId])
+  memberId  String
+  log       Log        @relation(fields: [logId], references: [id])
+  logId     String
+  server    Server     @relation(fields: [serverId], references: [id])
+  serverId  String
+  reactions Reaction[]
+}
+
+model Reaction {
+  emoji     String
+  Message   Message @relation(fields: [messageId], references: [id])
+  messageId String
+
+  @@id([emoji, messageId])
+}
